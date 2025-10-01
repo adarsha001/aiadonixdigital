@@ -14,8 +14,8 @@ export default function GlassNavbar() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-500">
-      {/* Navbar */}
+
+     <>
       <nav
         className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] lg:w-4/5 z-50 transition-all duration-300 rounded-3xl ${
           scrolled
@@ -29,7 +29,7 @@ export default function GlassNavbar() {
             <div className="flex-shrink-0 flex items-center space-x-2 sm:space-x-3">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
              
-             <img src="../../public/relogo.png" alt=""  className=' scale-200 rotate-90
+             <img src="../../public/relogo.png" alt=""  className=' scale-200 
              rounded-2xl'/>
            
               </div>
@@ -37,6 +37,7 @@ export default function GlassNavbar() {
             </div>
 
             {/* Desktop Navigation Links */}
+          
             <div className="hidden lg:block">
               <div className="flex items-baseline space-x-6 xl:space-x-8">
                 <a
@@ -118,7 +119,7 @@ export default function GlassNavbar() {
             <a
               href="#services"
               className="block text-white hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => setMobileMenuOpen(true)}
             >
               Services
             </a>
@@ -135,8 +136,8 @@ export default function GlassNavbar() {
           </div>
         </div>
       </nav>
+</>
 
   
-    </div>
   );
 }

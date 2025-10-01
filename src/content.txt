@@ -1,0 +1,80 @@
+🏠 Home Page
+
+Join BrandBooster – Build. Automate. Scale. 🚀
+We help businesses grow with modern websites, powerful CRMs, and AI-powered agents, all enhanced with automation across Instagram, Telegram, Gmail, WhatsApp, and more.
+
+✨ Websites that convert & engage
+⚡ CRM systems that organize & scale your business
+🤖 AI Agents that work 24/7
+🔗 Smart multi-channel automations with n8n
+
+👉 Boost your brand with the future of digital solutions.
+
+💼 Services Page
+🌐 Website Development (MERN + GSAP + Automation)
+
+We don’t just build websites — we create digital experiences:
+
+Custom, responsive, SEO-ready websites tailored to your business goals.
+
+MERN stack backend → Scalable, fast, and secure applications.
+
+GSAP animations → Smooth, interactive visuals to impress visitors.
+
+AI-enabled features → Chatbots, voice assistants, or lead capture forms embedded in your website.
+
+n8n integration → Automate tasks like sending confirmation emails, adding leads to CRM, or triggering WhatsApp messages.
+
+Social & messaging integration → Connect your site with Instagram, Telegram, WhatsApp for instant engagement.
+
+Example: A visitor fills a contact form → Data automatically saved in CRM → WhatsApp confirmation sent → Email follow-up scheduled → Team notified via Telegram.
+
+📊 CRM Solutions (MERN + n8n + Multi-channel Automation)
+
+Our custom CRM systems go beyond simple lead management:
+
+Manage leads & customer interactions → Keep everything organized in one dashboard.
+
+Automation with n8n → Auto-send follow-ups, assign leads to team members, trigger notifications.
+
+Multi-channel integration → Connect with WhatsApp, Gmail, Instagram, Telegram, and even AI Agents for real-time communication.
+
+Custom workflows → Example: lead comes in → score & categorize → send automated WhatsApp/Email → assign to sales agent.
+
+Analytics & reports → Track campaign success, lead conversion, and customer engagement.
+
+AI-powered insights → Predictive analysis on leads, customer behavior, and sales performance.
+
+Example: CRM captures an Instagram lead → AI agent scores the lead → Automated WhatsApp & Email follow-ups → Data synced with dashboard → Team notified instantly.
+
+🤖 AI Agents (ElevenLabs + WhatsApp + n8n + Multi-channel)
+
+Our AI agents handle customer interactions 24/7:
+
+Chat & Voice Agents → Natural AI voice via ElevenLabs.
+
+WhatsApp Bots → Engage with leads/customers instantly.
+
+Instagram Automation → Auto-respond DMs, capture leads, reply to story mentions.
+
+Telegram Bots → Run communities, broadcast updates, handle queries.
+
+Gmail Automation → Send welcome emails, confirmations, and follow-ups.
+
+n8n Workflows → Orchestrate all multi-channel interactions seamlessly.
+
+Example: A lead contacts you via Instagram → AI agent replies → Data saved in CRM → WhatsApp confirmation → Gmail follow-up → Team notified via Telegram.
+
+👤 About Us
+
+At Join BrandBooster, we combine technology, design, and automation to build digital growth engines:
+
+Websites → MERN stack, GSAP animations, AI features.
+
+CRM → Automated workflows, multi-channel messaging, predictive insights.
+
+AI Agents → 24/7 chat & voice, multi-platform automation.
+
+n8n Automations → Connect websites, CRM, messaging, and AI seamlessly.
+
+We don’t just build tools – we create ecosystems that grow your business automatically.

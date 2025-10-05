@@ -1,119 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 // It's assumed that gsap and its plugins are installed in your project
 // npm install gsap
 // The imports below were updated to use a CDN to resolve bundling errors.
 import gsap from "https://cdn.skypack.dev/gsap";
 import ScrollTrigger from "https://cdn.skypack.dev/gsap/ScrollTrigger";
-import { Home, Search, Heart, User, Bot, MessageCircle, Send, Instagram, GitMerge, Headset, Filter, BrainCircuit, Zap, ShieldCheck } from 'lucide-react';
+import { Home, Search, Heart, User, Bot, MessageCircle, Send, Instagram, GitMerge, Headset, Filter } from 'lucide-react';
 
 // Register the ScrollTrigger plugin with GSAP
 gsap.registerPlugin(ScrollTrigger);
-
-const GlassNavbar = () => {
-    const [scrolled, setScrolled] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const navLinks = [
-        { href: '#home', text: 'Home' },
-        { href: '#about', text: 'About' },
-        { href: '#services', text: 'Services' },
-        { href: '#contact', text: 'Contact' }
-    ];
-
-    return (
-        <>
-            <nav
-                className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] lg:w-4/5 z-50 transition-all duration-300 rounded-3xl ${
-                    scrolled
-                        ? 'bg-white/20 backdrop-blur-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)]'
-                        : 'bg-white/10 backdrop-blur-sm shadow-[0_4px_16px_rgba(0,0,0,0.05)]'
-                }`}
-            >
-                <div className="px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        {/* Logo */}
-                        <div className="flex-shrink-0 flex items-center space-x-2 sm:space-x-3">
-                            <div className="backdrop-blur-sm rounded-full p-2 flex items-center justify-center border border-white/30" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
-                                <Bot size={20} className="text-white"/>
-                            </div>
-                            <h1 className="font-bold text-white whitespace-nowrap text-lg">Aiadonix Digital</h1>
-                        </div>
-
-                        {/* Desktop Navigation Links */}
-                        <div className="hidden lg:block">
-                            <div className="flex items-baseline space-x-6 xl:space-x-8">
-                                {navLinks.map(link => (
-                                    <a
-                                        key={link.href}
-                                        href={link.href}
-                                        className="text-white hover:text-white/80 rounded-md font-medium transition-colors text-sm px-3 py-2"
-                                    >
-                                        {link.text}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* CTA Button - Desktop */}
-                        <div className="hidden lg:block">
-                            <button className="bg-white/20 hover:bg-white/30 text-white rounded-lg font-medium transition-all backdrop-blur-sm border border-white/30 text-sm px-4 py-2">
-                                Get Started
-                            </button>
-                        </div>
-
-                        {/* Mobile menu button */}
-                        <div className="lg:hidden">
-                            <button
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className="text-white hover:bg-white/10 rounded-lg transition-colors p-2"
-                                aria-label="Toggle menu"
-                            >
-                                {mobileMenuOpen ? (
-                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                                ) : (
-                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Mobile Menu */}
-                <div
-                    className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-                        mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                >
-                    <div className="px-4 pt-2 pb-4 space-y-2 border-t border-white/20">
-                        {navLinks.map(link => (
-                             <a
-                                key={link.href}
-                                href={link.href}
-                                className="block text-white hover:bg-white/10 rounded-md font-medium transition-colors px-3 py-2"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                {link.text}
-                            </a>
-                        ))}
-                        <button className="w-full bg-white/20 hover:bg-white/30 text-white rounded-lg font-medium transition-all backdrop-blur-sm border border-white/30 mt-2 py-2">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-            </nav>
-        </>
-    );
-}
-
 
 // Main App Component
 const App = () => {
@@ -155,7 +49,7 @@ const App = () => {
                     y: '30vh',
                     scale: 0.7,
                     rotation: -15,
-                    opacity: 0,
+                    opacity: 1,
                 }, {
                     x: 0,
                     y: 0,
@@ -209,56 +103,10 @@ const App = () => {
 
     return (
         <div className="bg-slate-950 font-sans">
-            <GlassNavbar />
-            {/* Hero Section */}
-            <section id="home" className="min-h-screen bg-gradient-to-br from-purple-900 via-slate-900 to-slate-950 flex items-center justify-center p-4 md:p-8 pt-20">
-                <div className="max-w-4xl text-center md:text-left">
-                    <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold text-white mb-6 leading-tight">
-                        Build Your Autonomous Workforce
-                    </h1>
-                    <p className="text-lg sm:text-xl md:text-2xl text-purple-200 mb-8">
-                        We create powerful AI agents using n8n to automate your marketing, sales, and support on WhatsApp, Instagram, and more.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <button className="px-8 py-4 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition duration-300">
-                            Get a Free Consultation
-                        </button>
-                        <button className="px-8 py-4 bg-white/10 text-white rounded-full font-semibold hover:bg-white/20 transition duration-300 backdrop-blur">
-                            See Our Agents
-                        </button>
-                    </div>
-                </div>
-            </section>
-            
-            {/* About Section */}
-            <section id="about" className="bg-slate-950 py-20 sm:py-32 px-4 md:px-8">
-                <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">Pioneering Automation with AI</h2>
-                    <p className="text-lg md:text-xl text-slate-400 mb-12 max-w-3xl mx-auto">
-                        Aiadonix Digital was founded on the principle that technology should be a force multiplier for businesses. We specialize in building custom AI agents powered by n8n, designed to integrate seamlessly into your existing workflows and handle repetitive tasks, so you can focus on what truly matters: growing your business.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
-                           <BrainCircuit size={40} className="text-purple-400 mx-auto mb-4"/>
-                           <h3 className="text-xl font-bold text-white mb-2">Intelligent Agents</h3>
-                           <p className="text-slate-400">Custom-built AI that understands context and executes complex tasks.</p>
-                        </div>
-                        <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
-                           <Zap size={40} className="text-purple-400 mx-auto mb-4"/>
-                           <h3 className="text-xl font-bold text-white mb-2">Rapid Deployment</h3>
-                           <p className="text-slate-400">Leveraging n8n for quick, efficient, and scalable workflow automation.</p>
-                        </div>
-                         <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
-                           <ShieldCheck size={40} className="text-purple-400 mx-auto mb-4"/>
-                           <h3 className="text-xl font-bold text-white mb-2">Secure & Reliable</h3>
-                           <p className="text-slate-400">Enterprise-grade solutions you can trust to handle your business processes.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+       
 
             {/* Phone Animation Container */}
-            <div id="services" ref={containerRef} className="relative bg-slate-950">
+            <div ref={containerRef} className="relative bg-slate-950">
                 <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
                     {/* Phone Device Mockup - now responsive */}
                     <div ref={phoneRef} className="relative w-[80vw] h-[calc(80vw*19.5/9)] sm:w-[45vw] sm:h-[calc(45vw*19.5/9)] md:w-[340px] md:h-[690px] max-w-[340px] max-h-[690px]">
@@ -338,12 +186,7 @@ const App = () => {
                                     </div>
 
                                     {/* Bottom Navigation */}
-                                    <div className="sticky bottom-0 bg-white/90 border-t backdrop-blur px-6 py-4 flex justify-around">
-                                        <Home className="text-purple-600" size={24} />
-                                        <Search className="text-slate-400" size={24} />
-                                        <Heart className="text-slate-400" size={24} />
-                                        <User className="text-slate-400" size={24} />
-                                    </div>
+                           
                                 </div>
                             </div>
                         </div>
@@ -352,7 +195,7 @@ const App = () => {
             </div>
 
             {/* Final Section */}
-            <section id="contact" className="min-h-screen bg-slate-950 flex items-center justify-center p-4 md:p-8">
+            <section className="min-h-screen bg-slate-950 flex items-center justify-center p-4 md:p-8">
                 <div className="max-w-4xl text-center">
                     <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
                         Ready to Automate Your Business?

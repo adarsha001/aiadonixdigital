@@ -11,9 +11,9 @@ const Home = () => {
         <div className="absolute z-10 text-center px-6">
           <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">
             Welcome to{' '}
-            <div className="relative inline-block mx-2">
+            <div className="relative inline-block mx-5 my-4  " >
               {/* Skewed Box */}
-              <div className="absolute -inset-4 bg-blue-600 transform -skew-x-12 rounded-lg shadow-2xl"></div>
+              <div className=" absolute -inset-4 bg-blue-600 transform -skew-x-12 rounded-lg shadow-2xl"></div>
               {/* Text */}
               <span className="relative text-white z-10">Aiadonix Digital</span>
             </div>

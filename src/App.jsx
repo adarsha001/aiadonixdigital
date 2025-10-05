@@ -2,17 +2,15 @@ import React from 'react'
 import GlassNavbar from './commponents/Navbar'
 
 import DarkVeil from './components/DarkVeil';
-import Main from './commponents/main';
+import Main from './commponents/Home';
 import PhoneScroll from './commponents/PhoneScroll';
 const App = () => {
   return (
     <>
-   <div className='min-h-screen w-full relative '>
+   <div className='min-h-screen w-full  '>
 
   
-<div className='h-[100vh]  ' >
-  <DarkVeil />
-</div>
+
    <GlassNavbar/>
    <Main />
    <PhoneScroll/>

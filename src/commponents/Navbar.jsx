@@ -1,373 +1,156 @@
-import React, { useEffect, useRef, useState } from "react";
-// It's assumed that gsap and its plugins are installed in your project
-// npm install gsap
-// The imports below were updated to use a CDN to resolve bundling errors.
-import gsap from "https://cdn.skypack.dev/gsap";
-import ScrollTrigger from "https://cdn.skypack.dev/gsap/ScrollTrigger";
-import { Home, Search, Heart, User, Bot, MessageCircle, Send, Instagram, GitMerge, Headset, Filter, BrainCircuit, Zap, ShieldCheck } from 'lucide-react';
+import ShinyText from '../components/ShinyText';
+import { useState, useEffect } from 'react';
 
-// Register the ScrollTrigger plugin with GSAP
-gsap.registerPlugin(ScrollTrigger);
+export default function GlassNavbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-const GlassNavbar = () => {
-    const [scrolled, setScrolled] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const navLinks = [
-        { href: '#home', text: 'Home' },
-        { href: '#about', text: 'About' },
-        { href: '#services', text: 'Services' },
-        { href: '#contact', text: 'Contact' }
-    ];
-
-    return (
-        <>
-            <nav
-                className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] lg:w-4/5 z-50 transition-all duration-300 rounded-3xl ${
-                    scrolled
-                        ? 'bg-white/20 backdrop-blur-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)]'
-                        : 'bg-white/10 backdrop-blur-sm shadow-[0_4px_16px_rgba(0,0,0,0.05)]'
-                }`}
-            >
-                <div className="px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        {/* Logo */}
-                        <div className="flex-shrink-0 flex items-center space-x-2 sm:space-x-3">
-                            <div className="backdrop-blur-sm rounded-full p-2 flex items-center justify-center border border-white/30" style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
-                                <Bot size={20} className="text-white"/>
-                            </div>
-                            <h1 className="font-bold text-white whitespace-nowrap text-lg">Aiadonix Digital</h1>
-                        </div>
-
-                        {/* Desktop Navigation Links */}
-                        <div className="hidden lg:block">
-                            <div className="flex items-baseline space-x-6 xl:space-x-8">
-                                {navLinks.map(link => (
-                                    <a
-                                        key={link.href}
-                                        href={link.href}
-                                        className="text-white hover:text-white/80 rounded-md font-medium transition-colors text-sm px-3 py-2"
-                                    >
-                                        {link.text}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* CTA Button - Desktop */}
-                        <div className="hidden lg:block">
-                            <button className="bg-white/20 hover:bg-white/30 text-white rounded-lg font-medium transition-all backdrop-blur-sm border border-white/30 text-sm px-4 py-2">
-                                Get Started
-                            </button>
-                        </div>
-
-                        {/* Mobile menu button */}
-                        <div className="lg:hidden">
-                            <button
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className="text-white hover:bg-white/10 rounded-lg transition-colors p-2"
-                                aria-label="Toggle menu"
-                            >
-                                {mobileMenuOpen ? (
-                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                                ) : (
-                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Mobile Menu */}
-                <div
-                    className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-                        mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                >
-                    <div className="px-4 pt-2 pb-4 space-y-2 border-t border-white/20">
-                        {navLinks.map(link => (
-                             <a
-                                key={link.href}
-                                href={link.href}
-                                className="block text-white hover:bg-white/10 rounded-md font-medium transition-colors px-3 py-2"
-                                onClick={() => setMobileMenuOpen(false)}
-                            >
-                                {link.text}
-                            </a>
-                        ))}
-                        <button className="w-full bg-white/20 hover:bg-white/30 text-white rounded-lg font-medium transition-all backdrop-blur-sm border border-white/30 mt-2 py-2">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-            </nav>
-        </>
-    );
-}
-
-
-// Main App Component
-const App = () => {
-    const phoneRef = useRef(null);
-    const phoneContentRef = useRef(null);
-    const containerRef = useRef(null);
-
-    useEffect(() => {
-        // Use gsap.context() for proper cleanup in React
-        const ctx = gsap.context(() => {
-            const phone = phoneRef.current;
-            const phoneContent = phoneContentRef.current;
-
-            // Use gsap.matchMedia() for responsive animations
-            const mm = gsap.matchMedia();
-
-            mm.add({
-                // Define breakpoints
-                isDesktop: "(min-width: 768px)",
-                isMobile: "(max-width: 767px)"
-            }, (context) => {
-                // Get conditions from context
-                let { isDesktop } = context.conditions;
-
-                // Create a master timeline for the scroll-triggered animations
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: 'top top',
-                        end: '+=4500',
-                        scrub: 1,
-                        pin: true,
-                    }
-                });
-
-                // Animation 1: Move phone from an initial off-screen position to the center
-                tl.fromTo(phone, {
-                    x: '-30vw',
-                    y: '30vh',
-                    scale: 0.7,
-                    rotation: -15,
-                    opacity: 0,
-                }, {
-                    x: 0,
-                    y: 0,
-                    scale: 1,
-                    rotation: 0,
-                    opacity: 1,
-                    ease: 'power1.inOut'
-                });
-
-                // Animation 2: Zoom into the phone, with a different scale for mobile and desktop
-                tl.to(phone, {
-                    scale: isDesktop ? 1.5 : 1.2, // Reduced the zoom-in scale
-                    ease: 'power2.inOut'
-                }, ">+0.2");
-
-                // Animation 3: Scroll the content inside the phone's screen
-                tl.to(phoneContent, {
-                    y: () => -(phoneContent.scrollHeight - phone.offsetHeight * 0.95),
-                    ease: 'none'
-                }, "<+0.5");
-
-                // Animation 4: Zoom back out after content has been scrolled
-                tl.to(phone, {
-                    scale: 1,
-                    ease: 'power2.inOut'
-                }, ">+0.5");
-
-                // Animation 5: Scale down and fade out, adjusting the final position for mobile
-                tl.to(phone, {
-                    scale: 0.8,
-                    opacity: 0,
-                    y: isDesktop ? '20vh' : '10vh', // Use a smaller vertical movement on mobile
-                    ease: 'power1.in'
-                }, ">+0.5");
-            });
-
-        }, containerRef); // Scope the context to the main container
-
-        // Cleanup function to revert all GSAP animations and ScrollTriggers
-        return () => ctx.revert();
-    }, []);
-
-    const services = [
-        { name: 'WhatsApp Agents', icon: <MessageCircle size={32} className="text-slate-400" /> },
-        { name: 'Telegram Bots', icon: <Send size={32} className="text-slate-400" /> },
-        { name: 'Instagram AI', icon: <Instagram size={32} className="text-slate-400" /> },
-        { name: 'n8n Workflows', icon: <GitMerge size={32} className="text-slate-400" /> },
-        { name: 'AI Support Desk', icon: <Headset size={32} className="text-slate-400" /> },
-        { name: 'Lead Capture Bots', icon: <Filter size={32} className="text-slate-400" /> }
-    ];
-
-    return (
-        <div className="bg-slate-950 font-sans">
-            <GlassNavbar />
-            {/* Hero Section */}
-            <section id="home" className="min-h-screen bg-gradient-to-br from-purple-900 via-slate-900 to-slate-950 flex items-center justify-center p-4 md:p-8 pt-20">
-                <div className="max-w-4xl text-center md:text-left">
-                    <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold text-white mb-6 leading-tight">
-                        Build Your Autonomous Workforce
-                    </h1>
-                    <p className="text-lg sm:text-xl md:text-2xl text-purple-200 mb-8">
-                        We create powerful AI agents using n8n to automate your marketing, sales, and support on WhatsApp, Instagram, and more.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <button className="px-8 py-4 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition duration-300">
-                            Get a Free Consultation
-                        </button>
-                        <button className="px-8 py-4 bg-white/10 text-white rounded-full font-semibold hover:bg-white/20 transition duration-300 backdrop-blur">
-                            See Our Agents
-                        </button>
-                    </div>
-                </div>
-            </section>
-            
-            {/* About Section */}
-            <section id="about" className="bg-slate-950 py-20 sm:py-32 px-4 md:px-8">
-                <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">Pioneering Automation with AI</h2>
-                    <p className="text-lg md:text-xl text-slate-400 mb-12 max-w-3xl mx-auto">
-                        Aiadonix Digital was founded on the principle that technology should be a force multiplier for businesses. We specialize in building custom AI agents powered by n8n, designed to integrate seamlessly into your existing workflows and handle repetitive tasks, so you can focus on what truly matters: growing your business.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
-                           <BrainCircuit size={40} className="text-purple-400 mx-auto mb-4"/>
-                           <h3 className="text-xl font-bold text-white mb-2">Intelligent Agents</h3>
-                           <p className="text-slate-400">Custom-built AI that understands context and executes complex tasks.</p>
-                        </div>
-                        <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
-                           <Zap size={40} className="text-purple-400 mx-auto mb-4"/>
-                           <h3 className="text-xl font-bold text-white mb-2">Rapid Deployment</h3>
-                           <p className="text-slate-400">Leveraging n8n for quick, efficient, and scalable workflow automation.</p>
-                        </div>
-                         <div className="bg-slate-900 p-8 rounded-2xl border border-slate-800">
-                           <ShieldCheck size={40} className="text-purple-400 mx-auto mb-4"/>
-                           <h3 className="text-xl font-bold text-white mb-2">Secure & Reliable</h3>
-                           <p className="text-slate-400">Enterprise-grade solutions you can trust to handle your business processes.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Phone Animation Container */}
-            <div id="services" ref={containerRef} className="relative bg-slate-950">
-                <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-                    {/* Phone Device Mockup - now responsive */}
-                    <div ref={phoneRef} className="relative w-[80vw] h-[calc(80vw*19.5/9)] sm:w-[45vw] sm:h-[calc(45vw*19.5/9)] md:w-[340px] md:h-[690px] max-w-[340px] max-h-[690px]">
-                        {/* Phone Frame */}
-                        <div className="absolute inset-0 bg-slate-900 rounded-[clamp(2rem,8vw,3.125rem)] shadow-2xl border-[8px] border-slate-800 overflow-hidden">
-                            {/* Notch */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 sm:w-40 sm:h-7 bg-slate-950 rounded-b-2xl sm:rounded-b-3xl z-20"></div>
-
-                            {/* Screen Content */}
-                            <div className="absolute inset-[2px] bg-white rounded-[clamp(1.7rem,7vw,2.625rem)] overflow-hidden">
-                                <div ref={phoneContentRef} className="relative">
-                                    {/* Status Bar */}
-                                    <div className="sticky top-0 z-10 bg-white/95 backdrop-blur px-6 py-4 flex justify-between items-center border-b">
-                                        <span className="text-sm font-semibold">9:41</span>
-                                        <div className="flex gap-1 items-center">
-                                            <svg width="17" height="11" viewBox="0 0 17 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 0H1.5C0.671573 0 0 0.671573 0 1.5V9.5C0 10.3284 0.671573 11 1.5 11H15.5C16.3284 11 17 10.3284 17 9.5V1.5C17 0.671573 16.3284 0 15.5 0Z" fill="#1E293B"/></svg>
-                                            <svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 2.5H14V8.5H12.5V2.5ZM10 0H11.5V11H10V0ZM0 5.5H1.5V11H0V5.5ZM2.5 4H4V11H2.5V4ZM5 2.5H6.5V11H5V2.5ZM7.5 1.5H9V11H7.5V1.5Z" fill="#1E293B"/></svg>
-                                        </div>
-                                    </div>
-
-                                    {/* App Content */}
-                                    <div className="px-6 py-8">
-                                        <h2 className="text-3xl font-bold mb-2 text-slate-900">AI-Powered Agents</h2>
-                                        <p className="text-slate-600 mb-6">Services to automate and grow your business.</p>
-
-                                        {/* Featured Card */}
-                                        <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl p-6 mb-6 text-white">
-                                            <div className="flex items-center gap-2 mb-3">
-                                                <Bot size={20} />
-                                                <span className="text-sm font-semibold">FEATURED SERVICE</span>
-                                            </div>
-                                            <h3 className="text-2xl font-bold mb-2">WhatsApp AI Agents</h3>
-                                            <p className="text-purple-100 mb-4">Engage customers 24/7 with intelligent, automated conversations.</p>
-                                            <button className="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold text-sm">Learn More</button>
-                                        </div>
-
-                                        {/* Services Grid */}
-                                        <div className="grid grid-cols-2 gap-4 mb-6">
-                                            {services.map((service) => (
-                                                <div key={service.name} className="bg-slate-50 rounded-2xl p-4 transition hover:shadow-lg">
-                                                    <div className="bg-gradient-to-br from-slate-200 to-slate-300 rounded-xl h-32 mb-3 flex items-center justify-center">
-                                                        {service.icon}
-                                                    </div>
-                                                    <h4 className="font-semibold text-sm mb-1 text-slate-800">{service.name}</h4>
-                                                    <p className="text-xs text-slate-500">Automation</p>
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        {/* Core Features */}
-                                        <h3 className="text-xl font-bold mb-4 text-slate-900">Why Choose Us?</h3>
-                                        <div className="space-y-3 mb-6">
-                                            {['Seamless Integration', 'Powered by n8n', '24/7 Automated Support', 'Custom AI Solutions', 'Scalable & Reliable'].map((cat) => (
-                                                <div key={cat} className="bg-slate-50 rounded-2xl p-4 flex justify-between items-center transition hover:bg-slate-100 cursor-pointer">
-                                                    <span className="font-semibold text-slate-800">{cat}</span>
-                                                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                                                        <span className="text-purple-600 font-bold text-sm">→</span>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        {/* Use Cases */}
-                                        <h3 className="text-xl font-bold mb-4 text-slate-900">Popular Use Cases</h3>
-                                        <div className="space-y-4">
-                                            {['Automated Lead Qualification', 'Instant Customer Support', 'E-commerce Cart Recovery'].map((useCase) => (
-                                                <div key={useCase} className="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-5 text-white shadow-lg">
-                                                    <div className="flex justify-between items-start">
-                                                        <div>
-                                                            <h4 className="font-bold text-lg">{useCase}</h4>
-                                                            <p className="text-blue-100 text-sm">Increase efficiency</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Bottom Navigation */}
-                                    <div className="sticky bottom-0 bg-white/90 border-t backdrop-blur px-6 py-4 flex justify-around">
-                                        <Home className="text-purple-600" size={24} />
-                                        <Search className="text-slate-400" size={24} />
-                                        <Heart className="text-slate-400" size={24} />
-                                        <User className="text-slate-400" size={24} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <>
+      <nav
+        className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] sm:w-[90%] lg:w-4/5 z-50 transition-all duration-300 rounded-3xl ${
+          scrolled
+            ? 'bg-white/20 backdrop-blur-lg shadow-[0_8px_32px_rgba(0,0,0,0.1)]'
+            : 'bg-white/10 backdrop-blur-sm shadow-[0_4px_16px_rgba(0,0,0,0.05)]'
+        }`}
+      >
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex-shrink-0 flex items-center space-x-2 sm:space-x-3">
+              <div className="backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30" style={{ width: '2em', height: '2em', backgroundColor: 'rgba(255, 255, 255, 0.2)' }}>
+                <img src="../../public/relogo.png" alt="" className="scale-200 rounded-2xl"/>
+              </div>
+              <h1 className="font-bold text-white whitespace-nowrap" style={{ fontSize: '1.125em' }}>Aiadonix Digital</h1>
             </div>
 
-            {/* Final Section */}
-            <section id="contact" className="min-h-screen bg-slate-950 flex items-center justify-center p-4 md:p-8">
-                <div className="max-w-4xl text-center">
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-                        Ready to Automate Your Business?
-                    </h2>
-                    <p className="text-lg md:text-xl text-slate-400 mb-8">
-                        Let's build an AI agent that works for you, 24/7.
-                    </p>
-                    <button className="px-12 py-5 bg-purple-600 text-white rounded-full font-semibold text-lg hover:bg-purple-700 transition duration-300">
-                        Book a Strategy Call
-                    </button>
-                </div>
-            </section>
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:block">
+              <div className="flex items-baseline space-x-6 xl:space-x-8">
+                <a
+                  href="#home"
+                  className="text-white hover:text-white/80 rounded-md font-medium transition-colors"
+                  style={{ padding: '0.5em 0.75em', fontSize: '0.875em' }}
+                >
+                  Home
+                </a>
+                <a
+                  href="#about"
+                  className="text-white hover:text-white/80 rounded-md font-medium transition-colors"
+                  style={{ padding: '0.5em 0.75em', fontSize: '0.875em' }}
+                >
+                  About
+                </a>
+                <a
+                  href="#services"
+                  className="text-white hover:text-white/80 rounded-md font-medium transition-colors"
+                  style={{ padding: '0.5em 0.75em', fontSize: '0.875em' }}
+                >
+                  Services
+                </a>
+                <a
+                  href="#contact"
+                  className="text-white hover:text-white/80 rounded-md font-medium transition-colors"
+                  style={{ padding: '0.5em 0.75em', fontSize: '0.875em' }}
+                >
+                  Contact
+                </a>
+              </div>
+            </div>
+
+            {/* CTA Button - Desktop */}
+            <div className="hidden lg:block">
+              <button className=" hover:bg-white/30 text-white rounded-lg font-medium transition-all backdrop-blur-sm border border-white/30" style={{ padding: '0.5em 1em', fontSize: '0.875em' }}>
+                <ShinyText 
+  text="get started" 
+  disabled={false} 
+  speed={3} 
+  className='custom-class' 
+/>
+              </button>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="lg:hidden">
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-white hover:bg-white/10 rounded-lg transition-colors"
+                style={{ padding: '0.5em' }}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? (
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: '1.5em', height: '1.5em' }}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ width: '1.5em', height: '1.5em' }}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
-    );
+
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
+            mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="px-4 pt-2 pb-4 space-y-2 border-t border-white/20">
+            <a
+              href="#home"
+              className="block text-white hover:bg-white/10 rounded-md font-medium transition-colors"
+              style={{ padding: '0.5em 0.75em', fontSize: '1em' }}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </a>
+            <a
+              href="#about"
+              className="block text-white hover:bg-white/10 rounded-md font-medium transition-colors"
+              style={{ padding: '0.5em 0.75em', fontSize: '1em' }}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              About
+            </a>
+            <a
+              href="#services"
+              className="block text-white hover:bg-white/10 rounded-md font-medium transition-colors"
+              style={{ padding: '0.5em 0.75em', fontSize: '1em' }}
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              Services
+            </a>
+            <a
+              href="#contact"
+              className="block text-white hover:bg-white/10 rounded-md font-medium transition-colors"
+              style={{ padding: '0.5em 0.75em', fontSize: '1em' }}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Contact
+            </a>
+            <button className=' text-white rounded-lg font-medium transition-all backdrop-blur-sm border border-white/30 translate-x-[35vw]' >
+           <ShinyText 
+  text="get started" 
+  disabled={false} 
+  speed={3} 
+  className='custom-class' 
+/>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
 }
-
-export default App;
-

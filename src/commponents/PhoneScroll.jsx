@@ -1,25 +1,30 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // It's assumed that gsap and its plugins are installed in your project
 // npm install gsap
 // The imports below were updated to use a CDN to resolve bundling errors.
 import gsap from "https://cdn.skypack.dev/gsap";
 import ScrollTrigger from "https://cdn.skypack.dev/gsap/ScrollTrigger";
-import { Home, Search, Heart, User, Bot, MessageCircle, Send, Instagram, GitMerge, Headset, Filter } from 'lucide-react';
+import { Home, Search, Heart, User, Bot, MessageCircle, Send, Instagram, GitMerge, Headset, Filter, BrainCircuit, Zap, ShieldCheck } from 'lucide-react';
 
 // Register the ScrollTrigger plugin with GSAP
 gsap.registerPlugin(ScrollTrigger);
+
+
+
 
 // Main App Component
 const App = () => {
     const phoneRef = useRef(null);
     const phoneContentRef = useRef(null);
     const containerRef = useRef(null);
+    const rightContentRef = useRef(null);
 
     useEffect(() => {
         // Use gsap.context() for proper cleanup in React
         const ctx = gsap.context(() => {
             const phone = phoneRef.current;
             const phoneContent = phoneContentRef.current;
+            const rightContent = rightContentRef.current;
 
             // Use gsap.matchMedia() for responsive animations
             const mm = gsap.matchMedia();
@@ -57,7 +62,14 @@ const App = () => {
                     rotation: 0,
                     opacity: 1,
                     ease: 'power1.inOut'
-                });
+                }, 0);
+
+                // Animate right content out at the same time
+                tl.to(rightContent, {
+                    x: '40vw',
+                    opacity: 0,
+                    ease: 'power1.inOut'
+                }, 0);
 
                 // Animation 2: Zoom into the phone, with a different scale for mobile and desktop
                 tl.to(phone, {
@@ -103,13 +115,37 @@ const App = () => {
 
     return (
         <div className="bg-slate-950 font-sans">
-       
+  
 
             {/* Phone Animation Container */}
-            <div ref={containerRef} className="relative bg-slate-950">
+            <div id="services" ref={containerRef} className="relative bg-slate-950">
                 <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+                    
+                    <div ref={rightContentRef} className="absolute w-full max-w-lg right-[5%] p-8 text-white hidden md:block">
+                        <h2 className="text-4xl xl:text-5xl font-bold mb-6">A Glimpse Into Automation</h2>
+                        <p className="text-slate-300 xl:text-lg mb-8">
+                            As our AI agent takes center stage, watch how seamlessly it can integrate into a mobile-first world. We build solutions that are powerful, intuitive, and accessible.
+                        </p>
+                        <div className="space-y-4">
+                            <div className="flex items-start gap-4">
+                                <div className="bg-white/10 p-3 rounded-full"><Zap size={20} className="text-purple-400"/></div>
+                                <div>
+                                    <h3 className="font-semibold text-white">Instant Engagement</h3>
+                                    <p className="text-slate-400 text-sm">Connect with customers the moment they reach out.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <div className="bg-white/10 p-3 rounded-full"><GitMerge size={20} className="text-purple-400"/></div>
+                                <div>
+                                    <h3 className="font-semibold text-white">Workflow Integration</h3>
+                                    <p className="text-slate-400 text-sm">Powered by n8n for robust connection to your existing tools.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Phone Device Mockup - now responsive */}
-                    <div ref={phoneRef} className="relative w-[80vw] h-[calc(80vw*19.5/9)] sm:w-[45vw] sm:h-[calc(45vw*19.5/9)] md:w-[340px] md:h-[690px] max-w-[340px] max-h-[690px]">
+                    <div ref={phoneRef} className="relative z-10 w-[80vw] h-[calc(80vw*19.5/9)] sm:w-[45vw] sm:h-[calc(45vw*19.5/9)] md:w-[340px] md:h-[690px] max-w-[340px] max-h-[690px]">
                         {/* Phone Frame */}
                         <div className="absolute inset-0 bg-slate-900 rounded-[clamp(2rem,8vw,3.125rem)] shadow-2xl border-[8px] border-slate-800 overflow-hidden">
                             {/* Notch */}
@@ -185,8 +221,7 @@ const App = () => {
                                         </div>
                                     </div>
 
-                                    {/* Bottom Navigation */}
-                           
+                               
                                 </div>
                             </div>
                         </div>
@@ -195,7 +230,7 @@ const App = () => {
             </div>
 
             {/* Final Section */}
-            <section className="min-h-screen bg-slate-950 flex items-center justify-center p-4 md:p-8">
+            <section id="contact" className="min-h-screen bg-slate-950 flex items-center justify-center p-4 md:p-8">
                 <div className="max-w-4xl text-center">
                     <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
                         Ready to Automate Your Business?

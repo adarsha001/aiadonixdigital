@@ -164,63 +164,233 @@ const App = () => {
                                     </div>
 
                                     {/* App Content */}
-                                    <div className="px-6 py-8">
-                                        <h2 className="text-3xl font-bold mb-2 text-slate-900">AI-Powered Agents</h2>
-                                        <p className="text-slate-600 mb-6">Services to automate and grow your business.</p>
-
-                                        {/* Featured Card */}
-                                        <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl p-6 mb-6 text-white">
-                                            <div className="flex items-center gap-2 mb-3">
-                                                <Bot size={20} />
-                                                <span className="text-sm font-semibold">FEATURED SERVICE</span>
+                                  
+                                    {/* Chat Interface */}
+                                    <div className="flex flex-col h-full">
+                                        {/* Chat Header */}
+                                        <div className="bg-gradient-to-r from-purple-600 to-purple-500 px-4 py-3 flex items-center gap-3">
+                                            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                                                <Bot size={20} className="text-purple-600" />
                                             </div>
-                                            <h3 className="text-2xl font-bold mb-2">WhatsApp AI Agents</h3>
-                                            <p className="text-purple-100 mb-4">Engage customers 24/7 with intelligent, automated conversations.</p>
-                                            <button className="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold text-sm">Learn More</button>
+                                            <div>
+                                                <h3 className="font-semibold text-white text-sm">Garudan Properties</h3>
+                                                <p className="text-purple-100 text-xs">AI Agent • Online</p>
+                                            </div>
                                         </div>
 
-                                        {/* Services Grid */}
-                                        <div className="grid grid-cols-2 gap-4 mb-6">
-                                            {services.map((service) => (
-                                                <div key={service.name} className="bg-slate-50 rounded-2xl p-4 transition hover:shadow-lg">
-                                                    <div className="bg-gradient-to-br from-slate-200 to-slate-300 rounded-xl h-32 mb-3 flex items-center justify-center">
-                                                        {service.icon}
-                                                    </div>
-                                                    <h4 className="font-semibold text-sm mb-1 text-slate-800">{service.name}</h4>
-                                                    <p className="text-xs text-slate-500">Automation</p>
+                                        {/* Chat Messages */}
+                                        <div className="flex-1 bg-slate-50 px-4 py-4 space-y-3 overflow-y-auto">
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
                                                 </div>
-                                            ))}
-                                        </div>
-
-                                        {/* Core Features */}
-                                        <h3 className="text-xl font-bold mb-4 text-slate-900">Why Choose Us?</h3>
-                                        <div className="space-y-3 mb-6">
-                                            {['Seamless Integration', 'Powered by n8n', '24/7 Automated Support', 'Custom AI Solutions', 'Scalable & Reliable'].map((cat) => (
-                                                <div key={cat} className="bg-slate-50 rounded-2xl p-4 flex justify-between items-center transition hover:bg-slate-100 cursor-pointer">
-                                                    <span className="font-semibold text-slate-800">{cat}</span>
-                                                    <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                                                        <span className="text-purple-600 font-bold text-sm">→</span>
-                                                    </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">Hello Sheela! 👋 Welcome to Garudan Properties. I'm your AI Agent. How can I assist you today?</p>
                                                 </div>
-                                            ))}
-                                        </div>
+                                            </div>
 
-                                        {/* Use Cases */}
-                                        <h3 className="text-xl font-bold mb-4 text-slate-900">Popular Use Cases</h3>
-                                        <div className="space-y-4">
-                                            {['Automated Lead Qualification', 'Instant Customer Support', 'E-commerce Cart Recovery'].map((useCase) => (
-                                                <div key={useCase} className="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-5 text-white shadow-lg">
-                                                    <div className="flex justify-between items-start">
-                                                        <div>
-                                                            <h4 className="font-bold text-lg">{useCase}</h4>
-                                                            <p className="text-blue-100 text-sm">Increase efficiency</p>
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">Hi, I wanted to know if there are any 3BHK flats available in Electronic City within 1 crore.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">Sure, Sheela. Let me check the latest listings for 3BHK apartments in Electronic City under ₹1 crore... 🔍</p>
+                                                </div>
+                                            </div>
+
+                                            {/* Property Listings */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] shadow-sm">
+                                                    <p className="text-sm text-slate-800 mb-3">Here are the top 3 matches:</p>
+                                                    <div className="space-y-2 text-sm">
+                                                        <div className="bg-slate-50 rounded-lg p-2">
+                                                            <p className="font-semibold text-slate-900">1️⃣ Mahindra Lifespaces</p>
+                                                            <p className="text-slate-600 text-xs">₹95L • 1250 sq.ft • Ready to move</p>
+                                                        </div>
+                                                        <div className="bg-slate-50 rounded-lg p-2">
+                                                            <p className="font-semibold text-slate-900">2️⃣ Salarpuria Sattva Greenage</p>
+                                                            <p className="text-slate-600 text-xs">₹98L • Semi-furnished</p>
+                                                        </div>
+                                                        <div className="bg-slate-50 rounded-lg p-2">
+                                                            <p className="font-semibold text-slate-900">3️⃣ Concorde Cuppertino</p>
+                                                            <p className="text-slate-600 text-xs">₹99L • Near Infosys campus</p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            ))}
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">Yes, please share details for Mahindra Lifespaces.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message with Property Details */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[85%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">Sure! 🏢 <span className="font-semibold">Mahindra Lifespaces</span> offers 3BHK apartments with modern interiors, clubhouse, and 24x7 security. It's located just 5 mins from Infosys. Would you like to schedule a site visit?</p>
+                                                </div>
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">Yes, I'd like to schedule a visit on Friday afternoon.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">The Friday afternoon slots are currently full. But I can book a visit for <span className="font-semibold">Friday morning (11:00 AM)</span> or <span className="font-semibold">Saturday afternoon (3:00 PM)</span>. Which one do you prefer?</p>
+                                                </div>
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">Hmm, Saturday afternoon works better for me.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Confirmation */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] shadow-sm">
+                                                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-2">
+                                                        <p className="text-sm font-semibold text-green-800">✅ Booking Confirmed</p>
+                                                        <p className="text-xs text-green-700 mt-1">Mahindra Lifespaces, Electronic City</p>
+                                                        <p className="text-xs text-green-700">Saturday at 3:00 PM</p>
+                                                        <p className="text-xs text-green-700">Agent: Mr. Ramesh</p>
+                                                    </div>
+                                                    <p className="text-xs text-slate-600">I'll send you a WhatsApp confirmation and map link shortly.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">Perfect, thanks. Actually, I had trouble reaching the customer support number last time. Will I be able to contact someone directly this time?</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">I'm sorry for the inconvenience, Sheela 🙏. I can escalate this to our support team right away. Meanwhile, for your site visit, you'll get a direct contact number of Mr. Ramesh so you can reach him instantly if needed.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">That's great. Also, can you tell me if home loan assistance is available for this project?</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">Yes, absolutely! 🏦 Garudan Properties partners with HDFC, SBI, and ICICI Bank. Home loan assistance is available up to 80% of the property value. Would you like me to connect you to our finance consultant?</p>
+                                                </div>
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">Yes, please connect me.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">Done ✅. I've shared your contact details with our finance consultant, Ms. Priya. She'll reach out to you within 2 hours to assist with loan eligibility and documentation.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">Thanks for the quick help. This is really convenient!</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">I'm glad to hear that, Sheela! 😊 We're here 24/7 to help you with any property queries, scheduling, or documentation support. Would you like me to send you similar 3BHK recommendations weekly?</p>
+                                                </div>
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">Yes, that would be helpful. Please do.</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">Perfect! You're now subscribed to our personalized updates list. 💬 Thank you for choosing Garudan Properties, Sheela. Is there anything else you'd like to ask before I close this chat?</p>
+                                                </div>
+                                            </div>
+
+                                            {/* User Message */}
+                                            <div className="flex justify-end">
+                                                <div className="bg-purple-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[75%]">
+                                                    <p className="text-sm text-white">No, that's all for now. Thanks again!</p>
+                                                </div>
+                                            </div>
+
+                                            {/* AI Message */}
+                                            <div className="flex gap-2">
+                                                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <Bot size={16} className="text-white" />
+                                                </div>
+                                                <div className="bg-white rounded-2xl rounded-tl-sm px-4 py-2 max-w-[75%] shadow-sm">
+                                                    <p className="text-sm text-slate-800">You're most welcome, Sheela! 🌟 Have a wonderful day and good luck with your site visit. I'll follow up after your tour to gather feedback.</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
                                
                                 </div>
                             </div>

@@ -4,6 +4,7 @@ import GlassNavbar from './commponents/Navbar'
 import DarkVeil from './components/DarkVeil';
 import Main from './commponents/Home';
 import PhoneScroll from './commponents/PhoneScroll';
+import ServiceSections from './commponents/ServiceSections';
 const App = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const App = () => {
 
    <GlassNavbar/>
    <Main />
+   <ServiceSections/>
    <PhoneScroll/>
    </div>
     </>

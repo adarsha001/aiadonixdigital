@@ -5,48 +5,43 @@ import { Code, Database, Bot, Sparkles, Zap, MessageSquare } from "lucide-react"
 
 gsap.registerPlugin(ScrollTrigger);
 
+// REMOVED: The 'isReady' prop is no longer needed.
 const ServiceSections = () => {
   const pinContainerRef = useRef(null);
   const sectionsRef = useRef([]);
 
   useEffect(() => {
-    // Use a GSAP context for proper cleanup
+    // REMOVED: The guard clause that waited for 'isReady' is gone.
     const ctx = gsap.context(() => {
-      // gsap.matchMedia() is used for creating responsive animations
       const mm = gsap.matchMedia();
 
-      // Add a media query for desktop screens (min-width: 768px)
       mm.add("(min-width: 768px)", () => {
-        // --- DESKTOP ANIMATION SETUP ---
         const sections = sectionsRef.current;
         const pinContainer = pinContainerRef.current;
 
-        // Initially, move all sections except the first one down by 100%
         gsap.set(sections.slice(1), { yPercent: 100 });
 
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: pinContainer,
+            // REMOVED: The 'scroller' property is gone. GSAP will now default to the browser window.
             pin: true,
             scrub: true,
             start: "top top",
-            // The animation duration is tied to scrolling 1 screen height for each section
             end: `+=${window.innerHeight * (sections.length - 1)}`,
           },
         });
 
-        // Animate each subsequent section to slide up over the previous one
         sections.slice(1).forEach((section) => {
           timeline.to(section, { yPercent: 0, ease: "none" });
         });
       });
-      // On mobile screens (less than 768px), the code above is not executed.
-      
     }, pinContainerRef);
 
-    // Cleanup function to revert all GSAP animations and ScrollTriggers
     return () => ctx.revert();
+  // REMOVED: The dependency array is now empty again.
   }, []);
+
 
   return (
     <div

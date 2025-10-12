@@ -10,40 +10,58 @@ const ServiceSections = () => {
   const sectionsRef = useRef([]);
 
   useEffect(() => {
+    // Use a GSAP context for proper cleanup
     const ctx = gsap.context(() => {
-      const sections = sectionsRef.current;
-      const pinContainer = pinContainerRef.current;
+      // gsap.matchMedia() is used for creating responsive animations
+      const mm = gsap.matchMedia();
 
-      gsap.set(sections.slice(1), { yPercent: 100 });
+      // Add a media query for desktop screens (min-width: 768px)
+      mm.add("(min-width: 768px)", () => {
+        // --- DESKTOP ANIMATION SETUP ---
+        const sections = sectionsRef.current;
+        const pinContainer = pinContainerRef.current;
 
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: pinContainer,
-          pin: true,
-          scrub: true,
-          start: "top top",
-          end: `+=${window.innerHeight * 2}`,
-        },
+        // Initially, move all sections except the first one down by 100%
+        gsap.set(sections.slice(1), { yPercent: 100 });
+
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: pinContainer,
+            pin: true,
+            scrub: true,
+            start: "top top",
+            // The animation duration is tied to scrolling 1 screen height for each section
+            end: `+=${window.innerHeight * (sections.length - 1)}`,
+          },
+        });
+
+        // Animate each subsequent section to slide up over the previous one
+        sections.slice(1).forEach((section) => {
+          timeline.to(section, { yPercent: 0, ease: "none" });
+        });
       });
-
-      timeline
-        .to(sections[1], { yPercent: 0, ease: "none" })
-        .to(sections[2], { yPercent: 0, ease: "none" });
+      // On mobile screens (less than 768px), the code above is not executed.
+      
     }, pinContainerRef);
 
+    // Cleanup function to revert all GSAP animations and ScrollTriggers
     return () => ctx.revert();
   }, []);
 
   return (
     <div
       ref={pinContainerRef}
-      className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white h-screen relative overflow-hidden"
+      // DESKTOP: Sets a fixed height, enables relative positioning for children, and hides overflow.
+      // MOBILE: These classes are ignored, so the container's height adjusts to its content.
+      className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white md:h-screen md:relative md:overflow-hidden"
     >
       {/* Section 1: Web Development */}
       <section
         ref={(el) => (sectionsRef.current[0] = el)}
         style={{ zIndex: 1 }}
-        className="absolute top-0 left-0 w-full h-full flex items-center justify-center p-4 sm:p-6 md:p-12 lg:p-20"
+        // DESKTOP: Positions the section absolutely to allow stacking.
+        // MOBILE: Behaves as a normal block element, stacking vertically.
+        className="md:absolute md:top-0 md:left-0 w-full md:h-full flex items-center justify-center p-4 sm:p-6 md:p-12 lg:p-20"
       >
         <div className="max-w-5xl w-full bg-white/10 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 border border-white/20 shadow-2xl md:overflow-y-auto md:max-h-[90vh]">
           <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
@@ -68,7 +86,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Zap className="text-yellow-400 mt-1 flex-shrink-0" size={20} />
@@ -78,7 +95,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Database className="text-purple-400 mt-1 flex-shrink-0" size={20} />
@@ -88,7 +104,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Code className="text-green-400 mt-1 flex-shrink-0" size={20} />
@@ -106,7 +121,7 @@ const ServiceSections = () => {
       <section
         ref={(el) => (sectionsRef.current[1] = el)}
         style={{ zIndex: 2 }}
-        className="absolute top-0 left-0 w-full h-full flex items-center justify-center p-4 sm:p-6 md:p-12 lg:p-20"
+        className="md:absolute md:top-0 md:left-0 w-full md:h-full flex items-center justify-center p-4 sm:p-6 md:p-12 lg:p-20"
       >
         <div className="max-w-5xl w-full bg-white/10 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 border border-white/20 shadow-2xl md:overflow-y-auto md:max-h-[90vh]">
           <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
@@ -131,7 +146,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Zap className="text-yellow-400 mt-1 flex-shrink-0" size={20} />
@@ -141,7 +155,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Sparkles className="text-pink-400 mt-1 flex-shrink-0" size={20} />
@@ -151,7 +164,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Database className="text-blue-400 mt-1 flex-shrink-0" size={20} />
@@ -169,7 +181,7 @@ const ServiceSections = () => {
       <section
         ref={(el) => (sectionsRef.current[2] = el)}
         style={{ zIndex: 3 }}
-        className="absolute top-0 left-0 w-full h-full flex items-center justify-center p-4 sm:p-6 md:p-12 lg:p-20"
+        className="md:absolute md:top-0 md:left-0 w-full md:h-full flex items-center justify-center p-4 sm:p-6 md:p-12 lg:p-20"
       >
         <div className="max-w-5xl w-full bg-white/10 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 border border-white/20 shadow-2xl md:overflow-y-auto md:max-h-[90vh]">
           <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
@@ -194,7 +206,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Zap className="text-yellow-400 mt-1 flex-shrink-0" size={20} />
@@ -204,7 +215,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Bot className="text-cyan-400 mt-1 flex-shrink-0" size={20} />
@@ -214,7 +224,6 @@ const ServiceSections = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all">
               <div className="flex items-start gap-3">
                 <Sparkles className="text-pink-400 mt-1 flex-shrink-0" size={20} />
